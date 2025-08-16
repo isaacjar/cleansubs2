@@ -1,0 +1,75 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: Arial, sans-serif;
+}
+
+.archivo {
+  width: 50%;
+  padding: 8px;
+  font-size: 20px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  background-color: #f9f9f9;
+}
+
+
+.botones {
+  display: flex;
+  justify-content: space-around;
+  padding: 15px;
+  background-color: #f8f8f8;
+  border-bottom: 1px solid #ccc;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.botones button {
+  padding: 10px 20px;
+  font-size: 15px;
+  border: none;
+  border-radius: 8px;
+  background-color: #A8D5BA; /* Verde pastel */
+  color: #2F4F4F; /* Gris verdoso para contraste */
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.botones button:hover {
+  background-color: #94C9AC; /* Un poco más oscuro al pasar el cursor */
+  transform: scale(1.05);
+}
+
+.botones button:active {
+  transform: scale(0.98);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.cuadro-texto {
+  height: 100%;
+  padding: 5px;
+  background-color: #fafafa;
+  box-sizing: border-box;
+}
+
+.cuadro-texto textarea {
+  width: 100%;
+  height: 100%;
+  font-size: 20px;
+  padding: 5px;
+  resize: none;
+  box-sizing: border-box;
+  background-color: #fff9c4; /* amarillo suave */
+}
+
+.cuadro-texto textarea {
+  transition: font-size 0.2s ease;
+}
+
+.etiqueta-pequena {
+  font-size: 10px;
+  display: inline-block;
+  width: 33vw; /* 33% del ancho de la ventana */
+}		
