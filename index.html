@@ -4,35 +4,40 @@
   <meta charset="UTF-8">
   <title>CleanSubs 2</title>
   <link rel="icon" type="image/png" href="favicon.png">
-  <link rel="stylesheet" href="CleanSubs2.css">  
-  
+  <link rel="stylesheet" href="styles.css">  
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-  🧼 CleanSubs 2 <input type="file" id="archivoTexto" class="archivo" accept="*/*" onchange="cargarArchivoTexto()">
- ||  <button onclick="guardarTextoComoArchivo()">SAVE</button>  
-  <button onclick="deshacer()">↩️ Undo</button>  
-||  <button onclick="disminuirTamaño()">➖ a</button>-<button onclick="aumentarTamaño()">➕ A</button>  
-||  <button onclick="contarLineas()">Nº Lines</button>-<button onclick="contarCaracteresConEspacios()">Nº Chars</button>
-  -<button onclick="contarCaracteresSinEspacios()">Nº Chars(no spaces)</button>
+  <label for="archivoTexto" class="titulo">🧼 CleanSubs 2<sup>©</sup> </label> 
+<input type="file" id="archivoTexto" class="archivo" accept="*/*" onchange="cargarArchivoTexto()" title="📂 Cargar archivo de subtítulos">
+|| <button onclick="copiaPortapapeles()" title="📋 Copiar texto al portapapeles">📄</button>
+   <button onclick="guardarTextoComoArchivo()" title="💾 Guardar texto como archivo">💾</button>  
+|| <button onclick="deshacer()" title="↩️ Deshacer último cambio">↩️ Undo</button>  
+|| <button onclick="disminuirTamaño()" title="➖ Disminuir tamaño de fuente">➖a</button>
+   <button onclick="aumentarTamaño()" title="➕ Aumentar tamaño de fuente">➕A</button>  
+|| <button onclick="contarLineas()" title="📏 Contar líneas del texto">📏Line</button>
+   <button onclick="contarCaracteresConEspacios()" title="🔢 Contar caracteres (con espacios)">🔢</button>
+   <button onclick="contarCaracteresSinEspacios()" title="🔢 Contar caracteres (sin espacios)">🔢(no spaces)</button>
+   <label id="msg" class="etiqueta-pequena">...</label> 
 
-  <div class="botones">
-    <button onclick="quitarLineasEnBlanco()">🧹 Blank Lines</button>
-    <button onclick="limpiarTexto()">🧹 Time</button>    
-    <button onclick="quitarSaltosDeLinea()">Join Lines</button>    
-    <button onclick="eliminarSymbols()">🧽 Symbols</button>
-    <button onclick="eliminarVocabulario()">🀄 Pinyin</button>
-    <button onclick="reemplazarDesdeCampoUnico()">🔄 Replace</button>
-    <button onclick="accionBoton(8)">F8</button>
-    <button onclick="quitarEspacios()">🧹 Spaces</button>
-    <input type="text" id="textoABorrar" placeholder="TT$$TT o delete">
-    <button onclick="borrarTexto()">⬅️❌ Delete</button>    
+<div class="botones">
+  <button onclick="quitarLineasEnBlanco()" title="🧹 Eliminar líneas vacías">🧹 Blank Lines</button>
+  <button onclick="limpiarTexto()" title="🧹 Eliminar marcas de tiempo">🧹 Time</button>    
+  <button onclick="quitarSaltosDeLinea()" title="🔗 Unir las líneas">🔗 Join</button>    
+  <button onclick="eliminarSymbols()" title="🧽 Eliminar símbolos">🧽 Symbols</button>
+  <button onclick="quitarEspacios()" title="🧹 Eliminar espacios">🧹 Spaces</button>
+  <button onclick="eliminarVocabulario()" title="Reemplazar vocabulario en pinyin">🀄 Pinyin</button>    
+  <button onclick="F8textoChulo()" title="Fuente estilizada">F1 🎨</button>
+  <button onclick="aplicarFuenteFija()" title="Fuente monoespacio">F2 🔤</button>
+  <input type="text" id="textoABorrar" placeholder="TT$$TT o delete" title="🔄 Formato: texto_a_buscar$$texto_a_reemplazar">
+  <button onclick="reemplazarDesdeCampoUnico()" title="🔄 Reemplazar texto">🔄 Replace</button>
+  <button onclick="borrarTexto()" title="❌ Borrar la cadena indicada">⬅️❌ Delete</button>    
+</div>
+
+  <div class="cuadro-texto">    
+    <textarea id="areaTexto" placeholder="Open file or paste text here..."></textarea>
   </div>
-  <div class="cuadro-texto">
-    <label id="msg" class="etiqueta-pequena">...</label> 
-    <textarea id="areaTexto" placeholder="Escribe aquí..."></textarea>
-  </div>
-<script src="CleanSubs2.js"></script>
+<script src="code.js"></script>
 <script src="replace.js"></script>
 </body>
 </html>
-
