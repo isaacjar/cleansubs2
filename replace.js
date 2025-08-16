@@ -57,6 +57,6 @@ function eliminarVocabulario() {
     .replace(/yēhéhuá/g, 'Yēhéhuá');
 
   area.value = textoModificado;
-  msg.textContent = "🧽 Se han reemplazado las cadenas de replace.js";
+  msg.textContent = "🧽 Se ha reemplazado el pinyin según replace.js";
 }
 
