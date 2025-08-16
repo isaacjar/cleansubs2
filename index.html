@@ -12,26 +12,64 @@
 <input type="file" id="archivoTexto" class="archivo" accept="*/*" onchange="cargarArchivoTexto()" title="📂 Cargar archivo de subtítulos">
 || <button onclick="copiaPortapapeles()" title="📋 Copiar texto al portapapeles">📄</button>
    <button onclick="guardarTextoComoArchivo()" title="💾 Guardar texto como archivo">💾</button>  
-|| <button onclick="deshacer()" title="↩️ Deshacer último cambio">↩️ Undo</button>  
+|| <button onclick="deshacer()" title="↩️ Deshacer último cambio">↩️ Undo</button>
+   <button onclick="rehacer()" title="🔁 Rehacer el último cambio">🔁 Redo</button>  <!-- COMENTARIO-->
 || <button onclick="disminuirTamaño()" title="➖ Disminuir tamaño de fuente">➖a</button>
    <button onclick="aumentarTamaño()" title="➕ Aumentar tamaño de fuente">➕A</button>  
 || <button onclick="contarLineas()" title="📏 Contar líneas del texto">📏Line</button>
    <button onclick="contarCaracteresConEspacios()" title="🔢 Contar caracteres (con espacios)">🔢</button>
-   <button onclick="contarCaracteresSinEspacios()" title="🔢 Contar caracteres (sin espacios)">🔢(no spaces)</button>
+   <!--<button onclick="contarCaracteresSinEspacios()" title="🔢 Contar caracteres (sin espacios)">🔢(no sp)</button> -->
+   <button onclick="toggleHerramientasExtra()" title="🧰 Mostrar herramientas de subtítulos">🧰</button>
    <label id="msg" class="etiqueta-pequena">...</label> 
+   
 
 <div class="botones">
   <button onclick="quitarLineasEnBlanco()" title="🧹 Eliminar líneas vacías">🧹 Blank Lines</button>
   <button onclick="limpiarTexto()" title="🧹 Eliminar marcas de tiempo">🧹 Time</button>    
   <button onclick="quitarSaltosDeLinea()" title="🔗 Unir las líneas">🔗 Join</button>    
-  <button onclick="eliminarSymbols()" title="🧽 Eliminar símbolos">🧽 Symbols</button>
-  <button onclick="quitarEspacios()" title="🧹 Eliminar espacios">🧹 Spaces</button>
+  <button onclick="eliminarSymbols()" title="🧽 Eliminar símbolos">🧽 Symbols</button> 
   <button onclick="eliminarVocabulario()" title="Reemplazar vocabulario en pinyin">🀄 Pinyin</button>    
   <button onclick="F8textoChulo()" title="Fuente estilizada">F1 🎨</button>
   <button onclick="aplicarFuenteFija()" title="Fuente monoespacio">F2 🔤</button>
   <input type="text" id="textoABorrar" placeholder="TT$$TT o delete" title="🔄 Formato: texto_a_buscar$$texto_a_reemplazar">
   <button onclick="reemplazarDesdeCampoUnico()" title="🔄 Reemplazar texto">🔄 Replace</button>
   <button onclick="borrarTexto()" title="❌ Borrar la cadena indicada">⬅️❌ Delete</button>    
+</div>
+<div id="herramientasExtra" style="display: none;" class="botones-extra">
+
+  <input type="text" id="timeSubt" class="input-derecha" value="+/-00:00:00,000" placeholder="+/-00:00:00,000" 
+   title="Ajusta tiempo subt Formato: +/-00:00:00,000">
+  <button onclick="ajustaTiempoSubt()" title="Ajusta el tiempo de los subtítulos">⏳ Change time</button>
+  
+  <!--<input type="text" id="formatoNumeracion" class="input-pequeño" value="999 ◉●★➤➜➥" placeholder="999 or ·" 
+   title="Formato de número o viñeta"> -->
+  ㅤ<input type="text" id="formatoNumeracion" list="opcionesNumeracion"
+  placeholder="999 / •" title="Formato numeración o viñeta" class="input-pequeño">
+  <datalist id="opcionesNumeracion">
+   <option value="●">  
+   <option value="◉">
+   <option value="⭕">
+   <option value="🔴">
+   <option value="✔️">
+   <option value="❌">
+   <option value="◼️">
+   <option value="◻️">
+   <option value="🔹">
+   <option value="★">
+   <option value="➜">
+   <option value="➤">
+   <option value="▶️">
+   <option value="➡️">
+   <option value="999">
+  </datalist>
+  <button onclick="addNumbering()" title="Añade numeración o viñeta">📑 Viñeta</button>
+
+  ㅤ<button onclick="eliminarEspaciosInicio()" title="🧹 Eliminar espacios al inicio de frase">🧹 TAB</button>
+  <button onclick="quitarEspacios()" title="🧹 Eliminar espacios">🧹 Spaces</button>
+  <button onclick="eliminarCaracteresOccidentales()" title="Elimina caracteres occidentales">❌ ABC...</button>
+  <button onclick="eliminarCaracteresChinos()" title="Elimina caracteres chinos">❌ 🀄</button>
+
+  ㅤ<button onclick="herramientaEspecial3()" title="🧬🔍🧪 Herramienta especial 3">🧬 Tool 3</button>
 </div>
 
   <div class="cuadro-texto">    
