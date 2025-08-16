@@ -5,11 +5,30 @@ html, body {
   font-family: Arial, sans-serif;
 }
 
+.titulo {
+  font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+  font-size: 24px;
+  font-weight: bold;
+  color: #2F4F4F; /* Gris verdoso elegante */
+}
+
+.fuente-fija {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 20px;
+  font-weight: 700; /* Más gruesa */
+  color: #1C2E2E; /* Más oscuro que #2F4F4F */
+  background-color: #F0F0F0; /* Ligero contraste */
+  padding: 12px;
+  border-radius: 6px;
+  letter-spacing: 0.3px; /* Más compacto */
+  text-shadow: 0.5px 0.5px 0.5px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+}
+
 .archivo {
-  width: 30%;
-  padding: 4px;
-  font-size: 16px;
-  border-radius: 2px;
+  width: 20%;
+  padding: 3px;
+  font-size: 12px;
+  border-radius: 3px;
   border: 1px solid #ccc;
   background-color: #f9f9f9;
 }
@@ -71,7 +90,5 @@ html, body {
 .etiqueta-pequena {
   font-size: 10px;
   display: inline-block;
-  width: 33vw; /* 33% del ancho de la ventana */
+  width: 20vw; /* 20% del ancho de la ventana */
 }		
-
-
