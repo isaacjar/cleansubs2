@@ -1,27 +1,68 @@
-let historialTexto = '';
+let historial = [];
+let redoStack = [];
+const maxHistorial = 20;
+
+function guardarHistorial() {
+  const area = document.getElementById("areaTexto");
+  if (!area) return;
+
+  const actual = area.value;
+  const ultimo = historial[historial.length - 1];
+
+  if (actual !== ultimo) {
+    historial.push(actual);
+    redoStack = [];
+    if (historial.length > maxHistorial) {
+      historial.shift();
+    }
+  }
+}
+
+function deshacer() {
+  const area = document.getElementById("areaTexto");
+  const msg = document.getElementById("msg");
+
+  if (historial.length === 0) {
+    msg.textContent = "⛔ No hay cambios para deshacer";
+    return;
+  }
+
+  const estadoAnterior = historial.pop(); // este es el estado que queremos restaurar
+  redoStack.push(area.value);             // guarda el estado actual para rehacer
+
+  area.value = estadoAnterior;
+  msg.textContent = "↩️ Se ha deshecho el último cambio";
+}
+
+function rehacer() {
+  const area = document.getElementById("areaTexto");
+  const msg = document.getElementById("msg");
+
+  if (redoStack.length === 0) {
+    msg.textContent = "⛔ No hay cambios para rehacer";
+    return;
+  }
+
+  const estadoRehecho = redoStack.pop();
+  historial.push(area.value); // guarda el estado actual antes de rehacer
+
+  area.value = estadoRehecho;
+  msg.textContent = "🔁 Se ha rehecho el cambio";
+}
 
 function F8textoChulo() {
   const area = document.getElementById("areaTexto");
-
-  // Eliminar otras clases de fuente
   area.classList.remove("fuente-fija", "roboto-mono", "fira-code", "source-code");
-
-  // Aplicar estilo "titulo"
   area.classList.add("titulo");
   document.getElementById("msg").textContent = "🎨 Cool style applied";
 }
 
 function aplicarFuenteFija() {
   const area = document.getElementById("areaTexto");
-
-  // Eliminar otras clases de estilo
   area.classList.remove("titulo", "roboto-mono", "fira-code", "source-code");
-
-  // Aplicar fuente fija
   area.classList.add("fuente-fija");
   document.getElementById("msg").textContent = "🔤 Fixed-width font applied";
 }
-
 
 function cargarArchivoTexto() {
   const input = document.getElementById("archivoTexto");
@@ -38,6 +79,7 @@ function cargarArchivoTexto() {
 
   lector.onload = function(e) {
     area.value = e.target.result;
+    guardarHistorial();
     msg.textContent = "✅ Archivo cargado correctamente";
   };
 
@@ -48,42 +90,32 @@ function cargarArchivoTexto() {
   lector.readAsText(archivo, "UTF-8");
 }
 
-
 function guardarTextoComoArchivo() {
   const area = document.getElementById("areaTexto");
-  historialTexto = area.value;
   if (!area) return;
 
   const contenido = area.value;
-
-  // Obtener timestamp en formato YYYYMMDD_HHmm
   const ahora = new Date();
   const año = ahora.getFullYear();
   const mes = String(ahora.getMonth() + 1).padStart(2, '0');
   const día = String(ahora.getDate()).padStart(2, '0');
   const hora = String(ahora.getHours()).padStart(2, '0');
   const minuto = String(ahora.getMinutes()).padStart(2, '0');
-
   const nombreArchivo = `CleanSubs_${año}${mes}${día}_${hora}${minuto}.txt`;
 
-  // Crear blob y enlace de descarga
   const blob = new Blob([contenido], { type: 'text/plain' });
   const enlace = document.createElement('a');
   enlace.href = URL.createObjectURL(blob);
   enlace.download = nombreArchivo;
-
-  // Simular clic para descargar
   document.body.appendChild(enlace);
   enlace.click();
   document.body.removeChild(enlace);
 }
 
-
 function copiaPortapapeles() {
   const area = document.getElementById("areaTexto");
   const texto = area.value;
 
-  // Usar la API moderna del portapapeles
   navigator.clipboard.writeText(texto)
     .then(() => {
       document.getElementById("msg").textContent = "✅ Texto copiado al portapapeles";
@@ -93,50 +125,39 @@ function copiaPortapapeles() {
     });
 }
 
-
-
 function quitarLineasEnBlanco() {
+  guardarHistorial();
   const area = document.getElementById("areaTexto");
-  historialTexto = area.value;
   if (!area) return;
 
   const textoOriginal = area.value;
   const lineas = textoOriginal.split('\n');
-
   const lineasFiltradas = lineas.filter(linea => linea.trim() !== '');
-
   area.value = lineasFiltradas.join('\n');
-  document.getElementById('msg').textContent = `Lineas en blanco eliminadas`;
+  document.getElementById('msg').textContent = `Líneas en blanco eliminadas`;
 }
 
 function limpiarTexto() {
+  guardarHistorial();
   const area = document.getElementById("areaTexto");
   const msg = document.getElementById("msg");
-
   const textoOriginal = area.value;
 
-  // Expresión para líneas con solo números
   const regexNumeros = /^\d+$/gm;
-
-  // Expresión para líneas con formato de hora (ej. 00:01:23,456 --> 00:01:25,789)
   const regexHoras = /^\d{2}:\d{2}:\d{2},\d{3}\s-->\s\d{2}:\d{2}:\d{2},\d{3}$/gm;
 
-  // Eliminar líneas numéricas y líneas con hora
   let textoModificado = textoOriginal
     .replace(regexNumeros, '')
-    .replace(regexHoras, '');
-
-  // Eliminar líneas vacías que quedan después
-  textoModificado = textoModificado.replace(/^\s*\n/gm, '');
+    .replace(regexHoras, '')
+    .replace(/^\s*\n/gm, '');
 
   area.value = textoModificado;
   msg.textContent = "🧹 Se han eliminado líneas numéricas y líneas con hora";
 }
 
-
 function quitarSaltosDeLinea() {
+  guardarHistorial();
   const area = document.getElementById("areaTexto");
-  historialTexto = area.value;
   if (!area) return;
 
   const textoConEspacios = area.value.replace(/\r?\n/g, ' ');
@@ -144,21 +165,35 @@ function quitarSaltosDeLinea() {
   document.getElementById('msg').textContent = `Saltos de línea eliminados`;
 }
 
-function deshacer() {
+function quitarEspacios() {
+  guardarHistorial();
+  const textarea = document.querySelector('.cuadro-texto textarea');
+  const textoSinEspacios = textarea.value.replace(/[ \t]+/g, '');
+  textarea.value = textoSinEspacios;
+
+  const caracteresSinEspacios = textoSinEspacios.replace(/\s/g, '').length;
+  document.getElementById('msg').textContent =
+    `Caracteres sin espacios (saltos conservados): ${caracteresSinEspacios}`;
+}
+
+function borrarTexto() {
+  guardarHistorial();
   const area = document.getElementById("areaTexto");
+  const input = document.getElementById("textoABorrar");
   const msg = document.getElementById("msg");
 
-  if (!area) {
-    msg.textContent = "⚠️ Área de texto no encontrada";
+  const textoOriginal = area.value;
+  const textoABorrar = input.value;
+
+  if (!textoABorrar) {
+    msg.textContent = "⚠️ Ingresa el texto que deseas borrar";
     return;
   }
 
-  if (historialTexto !== '') {
-    area.value = historialTexto;
-    msg.textContent = "↩️ Se ha deshecho el último cambio.";
-  } else {
-    msg.textContent = "⛔ No hay cambios para deshacer";
-  }
+  const regex = new RegExp(textoABorrar, 'gi');
+  const textoModificado = textoOriginal.replace(regex, '');
+  area.value = textoModificado;
+  msg.textContent = `🧹 Se han borrado todas las incidencias de "${textoABorrar}"`;
 }
 
 function aumentarTamaño() {
@@ -197,41 +232,131 @@ function contarCaracteresSinEspacios() {
   document.getElementById('msg').textContent = `Caracteres (sin espacios): ${total}`;
 }
 
-function quitarEspacios() {
-  const textarea = document.querySelector('.cuadro-texto textarea');
-  
-  // Eliminar espacios y tabulaciones, pero conservar saltos de línea
-  const textoSinEspacios = textarea.value.replace(/[ \t]+/g, '');
-  
-  // Actualizar el área de texto con el nuevo contenido
-  textarea.value = textoSinEspacios;
-  
-  // Mostrar el conteo actualizado en el label "msg"
-  const caracteresSinEspacios = textoSinEspacios.replace(/\s/g, '').length;
-  document.getElementById('msg').textContent =
-    `Caracteres sin espacios (saltos conservados): ${caracteresSinEspacios}`;
-}
-
-function borrarTexto() {
-  const area = document.getElementById("areaTexto");
-  const input = document.getElementById("textoABorrar");
+function toggleHerramientasExtra() {
+  const extra = document.getElementById("herramientasExtra");
   const msg = document.getElementById("msg");
 
-  const textoOriginal = area.value;
-  const textoABorrar = input.value;
+  if (extra.style.display === "none") {
+    extra.style.display = "flex"; // o "block" según tu diseño 
+    msg.textContent = "🧰 Herramientas adicionales activadas";
+  } else {
+    extra.style.display = "none"; 
+     msg.textContent = "🧰 Herramientas adicionales ocultas";
+  } 
+}
 
-  if (!textoABorrar) {
-    msg.textContent = "⚠️ Ingresa el texto que deseas borrar";
+function ajustaTiempoSubt() {
+  const area = document.getElementById("areaTexto");
+  const input = document.getElementById("timeSubt");
+  const msg = document.getElementById("msg");
+
+  const texto = area.value;
+  const desplazamiento = input.value.trim();
+
+  // Validar formato
+  const regexFormato = /^([+-])(\d{2}):(\d{2}):(\d{2}),(\d{3})$/;
+  const match = desplazamiento.match(regexFormato);
+
+  if (!match) {
+    msg.textContent = "⚠️ Formato inválido. Usa +00:00:01,500 o -00:00:02,000";
     return;
   }
 
-  // Crear expresión regular global e insensible a mayúsculas
-  const regex = new RegExp(textoABorrar, 'gi');
+  // Guardar estado actual antes de modificar
+  guardarHistorial();
+  
+  const signo = match[1] === "+" ? 1 : -1;
+  const horas = parseInt(match[2]);
+  const minutos = parseInt(match[3]);
+  const segundos = parseInt(match[4]);
+  const milisegundos = parseInt(match[5]);
 
-  // Reemplazar todas las coincidencias por cadena vacía
-  const textoModificado = textoOriginal.replace(regex, '');
+  const totalMs = signo * (
+    horas * 3600000 +
+    minutos * 60000 +
+    segundos * 1000 +
+    milisegundos
+  );
+
+  // Expresión para encontrar líneas de tiempo
+  const regexTiempo = /(\d{2}):(\d{2}):(\d{2}),(\d{3})\s-->\s(\d{2}):(\d{2}):(\d{2}),(\d{3})/g;
+
+  const textoModificado = texto.replace(regexTiempo, (match, h1, m1, s1, ms1, h2, m2, s2, ms2) => {
+    const t1 = convertirATiempoMs(h1, m1, s1, ms1) + totalMs;
+    const t2 = convertirATiempoMs(h2, m2, s2, ms2) + totalMs;
+
+    return `${formatearTiempo(t1)} --> ${formatearTiempo(t2)}`;
+  });
 
   area.value = textoModificado;
-
-  msg.textContent = `🧹 Se han borrado todas las incidencias de "${textoABorrar}"`;
+  msg.textContent = `⏱️ Tiempos ajustados en ${desplazamiento}`;
 }
+
+// Convierte tiempo a milisegundos
+function convertirATiempoMs(h, m, s, ms) {
+  return (
+    parseInt(h) * 3600000 +
+    parseInt(m) * 60000 +
+    parseInt(s) * 1000 +
+    parseInt(ms)
+  );
+}
+
+// Convierte milisegundos a formato SRT
+function formatearTiempo(ms) {
+  if (ms < 0) ms = 0; // Evitar tiempos negativos
+
+  const h = String(Math.floor(ms / 3600000)).padStart(2, '0');
+  ms %= 3600000;
+  const m = String(Math.floor(ms / 60000)).padStart(2, '0');
+  ms %= 60000;
+  const s = String(Math.floor(ms / 1000)).padStart(2, '0');
+  const msFinal = String(ms % 1000).padStart(3, '0');
+
+  return `${h}:${m}:${s},${msFinal}`;
+}
+
+function addNumbering() {
+  guardarHistorial();
+
+  const area = document.getElementById("areaTexto");
+  const formatoInput = document.getElementById("formatoNumeracion");
+  const msg = document.getElementById("msg");
+
+  if (!area || !formatoInput) {
+    msg.textContent = "⚠️ Área de texto o campo de formato no encontrado";
+    return;
+  }
+
+  const formato = formatoInput.value.trim();
+  const textoOriginal = area.value;
+  const lineas = textoOriginal.split(/\r?\n/);
+
+  let textoNumerado = "";
+
+  if (/^9+$/.test(formato)) {
+    // Formato numérico con ceros a la izquierda
+    const longitud = formato.length;
+
+    textoNumerado = lineas.map((linea, index) => {
+      const numero = String(index + 1).padStart(longitud, '0');
+      return `${numero} ${linea}`;
+    }).join('\n');
+
+    msg.textContent = `🔢 Numeración aplicada con ${longitud} dígitos`;
+  } else {
+    // Formato como viñeta personalizada
+    textoNumerado = lineas.map(linea => `${formato} ${linea}`).join('\n');
+    msg.textContent = `🔸 Viñeta "${formato}" aplicada a cada línea`;
+  }
+
+  area.value = textoNumerado;
+}
+
+
+window.addEventListener("DOMContentLoaded", () => {
+  const area = document.getElementById("areaTexto");
+  if (area && area.value.trim() !== "") {
+    guardarHistorial();
+  }
+});
