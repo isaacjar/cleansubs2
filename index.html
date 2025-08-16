@@ -9,7 +9,11 @@
 </head>
 <body>
   🧼 CleanSubs 2 <input type="file" id="archivoTexto" class="archivo" accept="*/*" onchange="cargarArchivoTexto()">
- ||   ||  <button onclick="guardarTextoComoArchivo()">SAVE</button>  
+ ||  <button onclick="guardarTextoComoArchivo()">SAVE</button>  
+  <button onclick="deshacer()">↩️ Undo</button>  
+||  <button onclick="disminuirTamaño()">➖ a</button>-<button onclick="aumentarTamaño()">➕ A</button>  
+||  <button onclick="contarLineas()">Nº Lines</button>-<button onclick="contarCaracteresConEspacios()">Nº Chars</button>
+  -<button onclick="contarCaracteresSinEspacios()">Nº Chars(no spaces)</button>
 
   <div class="botones">
     <button onclick="quitarLineasEnBlanco()">🧹 Blank Lines</button>
@@ -25,12 +29,10 @@
   </div>
   <div class="cuadro-texto">
     <label id="msg" class="etiqueta-pequena">...</label> 
-<button onclick="deshacer()">↩️ Undo</button>  
-||  <button onclick="disminuirTamaño()">➖ a</button>-<button onclick="aumentarTamaño()">➕ A</button>  
-||  <button onclick="contarLineas()">Nº Lines</button>-<button onclick="contarCaracteresConEspacios()">Nº Chars</button>-<button onclick="contarCaracteresSinEspacios()">Nº Chars(no spaces)</button>
     <textarea id="areaTexto" placeholder="Escribe aquí..."></textarea>
   </div>
 <script src="CleanSubs2.js"></script>
 <script src="replace.js"></script>
 </body>
 </html>
+
