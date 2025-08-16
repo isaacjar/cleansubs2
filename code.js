@@ -1,9 +1,27 @@
 let historialTexto = '';
 
-function accionBoton(numero) {
+function F8textoChulo() {
   const area = document.getElementById("areaTexto");
-  area.value += `Has pulsado el Botón ${numero}\n`;
+
+  // Eliminar otras clases de fuente
+  area.classList.remove("fuente-fija", "roboto-mono", "fira-code", "source-code");
+
+  // Aplicar estilo "titulo"
+  area.classList.add("titulo");
+  document.getElementById("msg").textContent = "🎨 Cool style applied";
 }
+
+function aplicarFuenteFija() {
+  const area = document.getElementById("areaTexto");
+
+  // Eliminar otras clases de estilo
+  area.classList.remove("titulo", "roboto-mono", "fira-code", "source-code");
+
+  // Aplicar fuente fija
+  area.classList.add("fuente-fija");
+  document.getElementById("msg").textContent = "🔤 Fixed-width font applied";
+}
+
 
 function cargarArchivoTexto() {
   const input = document.getElementById("archivoTexto");
@@ -11,7 +29,7 @@ function cargarArchivoTexto() {
   const msg = document.getElementById("msg");
 
   if (!input.files || input.files.length === 0) {
-    msg.textContent = "⚠️ No se ha seleccionado ningún archivo.";
+    msg.textContent = "⚠️ No se ha seleccionado ningún archivo";
     return;
   }
 
@@ -20,11 +38,11 @@ function cargarArchivoTexto() {
 
   lector.onload = function(e) {
     area.value = e.target.result;
-    msg.textContent = "✅ Archivo cargado correctamente.";
+    msg.textContent = "✅ Archivo cargado correctamente";
   };
 
   lector.onerror = function() {
-    msg.textContent = "❌ Error al leer el archivo.";
+    msg.textContent = "❌ Error al leer el archivo";
   };
 
   lector.readAsText(archivo, "UTF-8");
@@ -59,6 +77,22 @@ function guardarTextoComoArchivo() {
   enlace.click();
   document.body.removeChild(enlace);
 }
+
+
+function copiaPortapapeles() {
+  const area = document.getElementById("areaTexto");
+  const texto = area.value;
+
+  // Usar la API moderna del portapapeles
+  navigator.clipboard.writeText(texto)
+    .then(() => {
+      document.getElementById("msg").textContent = "✅ Texto copiado al portapapeles";
+    })
+    .catch(err => {
+      document.getElementById("msg").textContent = "❌ Error al copiar: " + err;
+    });
+}
+
 
 
 function quitarLineasEnBlanco() {
@@ -96,7 +130,7 @@ function limpiarTexto() {
   textoModificado = textoModificado.replace(/^\s*\n/gm, '');
 
   area.value = textoModificado;
-  msg.textContent = "🧹 Se han eliminado líneas numéricas y líneas con hora.";
+  msg.textContent = "🧹 Se han eliminado líneas numéricas y líneas con hora";
 }
 
 
@@ -115,7 +149,7 @@ function deshacer() {
   const msg = document.getElementById("msg");
 
   if (!area) {
-    msg.textContent = "⚠️ Área de texto no encontrada.";
+    msg.textContent = "⚠️ Área de texto no encontrada";
     return;
   }
 
@@ -123,7 +157,7 @@ function deshacer() {
     area.value = historialTexto;
     msg.textContent = "↩️ Se ha deshecho el último cambio.";
   } else {
-    msg.textContent = "⛔ No hay cambios para deshacer.";
+    msg.textContent = "⛔ No hay cambios para deshacer";
   }
 }
 
@@ -187,7 +221,7 @@ function borrarTexto() {
   const textoABorrar = input.value;
 
   if (!textoABorrar) {
-    msg.textContent = "⚠️ Ingresa el texto que deseas borrar.";
+    msg.textContent = "⚠️ Ingresa el texto que deseas borrar";
     return;
   }
 
@@ -199,5 +233,5 @@ function borrarTexto() {
 
   area.value = textoModificado;
 
-  msg.textContent = `🧹 Se han borrado todas las incidencias de "${textoABorrar}".`;
+  msg.textContent = `🧹 Se han borrado todas las incidencias de "${textoABorrar}"`;
 }
