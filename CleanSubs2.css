@@ -6,7 +6,7 @@ html, body {
 }
 
 .archivo {
-  width: 50%;
+  width: 30%;
   padding: 8px;
   font-size: 20px;
   border-radius: 6px;
@@ -73,3 +73,4 @@ html, body {
   display: inline-block;
   width: 33vw; /* 33% del ancho de la ventana */
 }		
+
