@@ -7,9 +7,9 @@ html, body {
 
 .archivo {
   width: 30%;
-  padding: 8px;
-  font-size: 20px;
-  border-radius: 6px;
+  padding: 4px;
+  font-size: 16px;
+  border-radius: 2px;
   border: 1px solid #ccc;
   background-color: #f9f9f9;
 }
@@ -73,4 +73,5 @@ html, body {
   display: inline-block;
   width: 33vw; /* 33% del ancho de la ventana */
 }		
+
 
