@@ -359,4 +359,11 @@ window.addEventListener("DOMContentLoaded", () => {
   if (area && area.value.trim() !== "") {
     guardarHistorial();
   }
+  document.getElementById("areaTexto").focus();
 });
+
+function limpiarTodo() {
+  const area = document.getElementById("areaTexto");
+  area.value = "";
+  area.focus();
+}
