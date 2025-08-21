@@ -9,21 +9,21 @@
 </head>
 <body>
   <label for="archivoTexto" class="titulo">🧼 CleanSubs 2<sup>©</sup> </label> 
-<input type="file" id="archivoTexto" class="archivo" accept="*/*" onchange="cargarArchivoTexto()" title="📂 Cargar archivo de subtítulos">
-|| <button onclick="copiaPortapapeles()" title="📋 Copiar al portapapeles">📄</button>
+  
+   <input type="file" id="archivoTexto" class="archivo" accept="*/*" onchange="cargarArchivoTexto()" title="📂 Cargar archivo de subtítulos">
    <button onclick="guardarTextoComoArchivo()" title="💾 Guardar a un archivo">💾</button>
-   <button onclick="limpiarTodo()" title="🗑️ Limpiar todo">🗑️</button>  
-|| <button onclick="deshacer()" title="↩️ Deshacer último cambio">↩️ Undo</button>
-   <button onclick="rehacer()" title="🔁 Rehacer el último cambio">🔁 Redo</button>  <!-- COMENTARIO-->
+|| <button onclick="copiaPortapapeles()" title="📋 Copiar al portapapeles">📄</button>   
+   <button onclick="limpiarTodo()" title="🗑️ Limpiar todo">🗑️</button>    
+   <button onclick="toggleHerramientasExtra()" title="🧰 Mostrar herramientas de subtítulos">🧰</button>
+|| <button onclick="deshacer()" title="↩️ Deshacer último cambio">↩️</button>
+   <button onclick="rehacer()" title="🔁 Rehacer el último cambio">🔁</button>  <!-- COMENTARIO-->
 || <button onclick="disminuirTamaño()" title="➖ Disminuir tamaño de fuente">➖a</button>
    <button onclick="aumentarTamaño()" title="➕ Aumentar tamaño de fuente">➕A</button>  
-|| <button onclick="contarLineas()" title="📏 Contar líneas del texto">📏Line</button>
+|| <button onclick="contarLineas()" title="📏 Contar líneas del texto">📏</button>
    <button onclick="contarCaracteresConEspacios()" title="🔢 Contar caracteres (con espacios)">🔢</button>
    <!--<button onclick="contarCaracteresSinEspacios()" title="🔢 Contar caracteres (sin espacios)">🔢(no sp)</button> -->
-   <button onclick="toggleHerramientasExtra()" title="🧰 Mostrar herramientas de subtítulos">🧰</button>
-   <label id="msg" class="etiqueta-pequena">...</label> 
+   <label id="msg" class="etiqueta-pequena">...</label>
    
-
 <div class="botones">
   <button onclick="quitarLineasEnBlanco()" title="🧹 Eliminar líneas vacías">🧹 Blank Lines</button>
   <button onclick="limpiarTexto()" title="🧹 Eliminar marcas de tiempo">🧹 Time</button>    

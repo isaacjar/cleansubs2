@@ -45,7 +45,7 @@ function eliminarCaracteresOccidentales() {
   const textoLimpio = area.value.replace(/[\u0000-\u024F]/g, '');
 
   area.value = textoLimpio;
-  msg.textContent = "🧽 Caracteres occidentales eliminados (incluye tonos latinos)";
+  msg.textContent = "🧽 Caracteres occidentales eliminados";
 }
 
 function eliminarCaracteresChinos() {
@@ -91,9 +91,11 @@ function eliminarSymbols() {
   const msg = document.getElementById("msg");
   const textoOriginal = area.value;
 
-  // Eliminar todas las apariciones de <i> y </i>
+  // Eliminar SÍMBOLOS
   const textoModificado = textoOriginal
-    .replace(/<b>/gi, '')
+    .replace(/\+/gi, '')
+    .replace(/\*/gi, '')
+	.replace(/<b>/gi, '')
     .replace(/<\/b>/gi, '')
     .replace(/<u>/gi, '')
     .replace(/<\/u>/gi, '')
@@ -136,6 +138,7 @@ function eliminarVocabulario() {
     .replace(/shǐtú xíng chuán/g, 'Shǐtú Xíngzhuàn')  
     .replace(/xīlà yǔ/g, 'Xīlàyǔ')
     .replace(/yēhéhuá/g, 'Yēhéhuá')
+    .replace(/yēsū/g, 'Yēsū')
     .replace(/yóudà shū/g, 'Yóudàshū')
     .replace(/yuēhàn fú yīn/g, 'Yuēhànfúyīn')
     .replace(/yuēhàn yī shū/g, 'Yuēhàn Yīshū')
@@ -143,6 +146,6 @@ function eliminarVocabulario() {
     .replace(/yuēhàn sān shū/g, 'Yuēhàn Sānshū');
 
   area.value = textoModificado;
-  msg.textContent = "🧽 Se ha reemplazado el pinyin según replace.js";
+  msg.textContent = "🧽 Se ha corregido el pinyin";
 }
 
