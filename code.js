@@ -160,8 +160,9 @@ function quitarSaltosDeLinea() {
   const area = document.getElementById("areaTexto");
   if (!area) return;
 
-  const textoConEspacios = area.value.replace(/\r?\n/g, ' ');
-  area.value = textoConEspacios;
+  // Elimina saltos de línea sin añadir espacios extra
+  const textoSinSaltos = area.value.replace(/\s*\r?\n\s*/g, ' ').trim();
+  area.value = textoSinSaltos;
   document.getElementById('msg').textContent = `Saltos de línea eliminados`;
 }
 
