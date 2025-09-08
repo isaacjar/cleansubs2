@@ -203,3 +203,24 @@ function eliminarVocabulario() {
   msg.textContent = "🧽 Se ha corregido el pinyin";
 }
 
+function herramientaEspecial3() {
+  const area = document.getElementById("areaTexto");
+
+  // posición actual del cursor
+  const start = area.selectionStart;
+  const end = area.selectionEnd;
+
+  // texto original
+  const texto = area.value;
+
+  // insertar SPECIAL SYMBOL en la posición del cursor
+  area.value = texto.slice(0, start) + "(◕‿◕)" + texto.slice(end);
+
+  // recolocar el cursor justo después del texto insertado
+  area.selectionStart = area.selectionEnd = start + "(◕‿◕)".length;
+
+  // opcional: mensaje de confirmación si usas un <div id="msg">
+  if (typeof msg !== "undefined") {
+    msg.textContent = `✅ Insertado "(◕‿◕)" en posición ${start}.`;
+  }
+}
